@@ -1,6 +1,5 @@
-const express = require('express');
-const router = express.Router();
-const ThoughtModel = require('../../models/thought'); // Adjust the path as necessary
+const router = require('express').Router();
+const ThoughtModel = require('../../models/thought');
 
 // Create a new thought
 router.post('/thoughts', async (req, res) => {
