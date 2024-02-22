@@ -1,66 +1,32 @@
-const router = require('express').Router();
-const ThoughtModel = require('../../models/thought');
+const express = require("express");
+const thoughtController = require("../../controllers/thought");
+const reactionController = require("../../controllers/reaction");
 
-// Create a new thought
-router.post('/thoughts', async (req, res) => {
-    try {
-        const thought = new ThoughtModel(req.body);
-        await thought.save();
-        res.status(201).json(thought);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
+const {
+    getAllThoughts,
+    getOneThought,
+    createThought,
+    updateThought,
+    deleteThought,
+} = thoughtController;
 
-// Get all thoughts
-router.get('/thoughts', async (req, res) => {
-    try {
-        const thoughts = await ThoughtModel.find();
-        res.json(thoughts);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+const {
+    createReaction,
+    deleteReaction,
+    getOneReaction,
+    updateReaction,
+} = reactionController;
 
-// Get a thought
-router.get('/thoughts/:id', async (req, res) => {
-    try {
-        const thought = await ThoughtModel.findById(req.params.id);
-        if (!thought) {
-            return res.status(404).json({ message: 'Thought not found' });
-        }
-        res.json(thought);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+const router = express.Router();
 
-// Update a thought
-router.put('/thoughts/:id', async (req, res) => {
-    try {
-        const thought = await ThoughtModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!thought) {
-            return res.status(404).json({ message: 'Thought not found' });
-        }
-        res.json(thought);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
+router.get("/", getAllThoughts);
 
-// Delete a thought
-router.delete('/thoughts/:id', async (req, res) => {
-    try {
-        const thought = await ThoughtModel.findByIdAndDelete(req.params.id);
-        if (!thought) {
-            return res.status(404).json({ message: 'Thought not found' });
-        }
-        res.status(204).send();
-        } catch (error) {
-        res.status(500).json({ message: error.message });
-        }
-        });
-        
-        module.exports = router;
-        
-        
+router.get("/:thoughtId", getOneThought);
+
+router.post("/", createThought);
+
+router.put("/:thoughtId", updateThought);
+
+router.delete("/:thoughtId", deleteThought);
+
+module.exports = router;
