@@ -1,6 +1,6 @@
 const express = require("express");
 const thoughtController = require("../../controllers/thought");
-const reactionController = require("../../controllers/reaction");
+
 
 const {
     getAllThoughts,
@@ -9,13 +9,6 @@ const {
     updateThought,
     deleteThought,
 } = thoughtController;
-
-const {
-    createReaction,
-    deleteReaction,
-    getOneReaction,
-    updateReaction,
-} = reactionController;
 
 const router = express.Router();
 
