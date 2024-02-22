@@ -6,7 +6,6 @@ A simple API for a social media application, allowing users to manage profiles, 
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Features](#features-)
 - [Demo](#demo)
 - [Getting Started](#getting-started-️)
   - [Installation](#installation)
