@@ -2,7 +2,7 @@ const express = require("express");
 const {
   addFriend,
   removeFriend,
-} = require("../../controllers/friendController");
+} = require("../../controllers/friend");
 
 const router = express.Router();
 

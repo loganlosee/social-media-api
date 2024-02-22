@@ -4,7 +4,7 @@ const {
   deleteReaction,
   getOneReaction,
   updateReaction,
-} = require("../../controllers/reactionController");
+} = require("../../controllers/reaction");
 
 const router = express.Router();
 
