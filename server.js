@@ -1,23 +1,29 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const routes = require('./routes');
-
+const connectDB = require("./config/db");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+connectDB();
+
 app.use(express.json());
 
-// test db connection
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB database');
+app.use(routes);
+// Server error handling
+app.use((req, res) => {
+  res.status(404).send("OOPS, page not found");
 });
 
-// Server test
-app.get('/', (req, res) => {
-  res.send('Welcome to the Social Media API');
-});
+const server = app.listen(PORT, () => {
+  const address = server.address();
+  if (address) {
+    const protocol = address.protocol || "http";
+    const host = "localhost"; 
+    const port = address.port || PORT;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on ${protocol}://${host}:${port}`);
+  } else {
+    console.error("Failed to retrieve server address.");
+  }
 });
