@@ -26,10 +26,13 @@ const UserSchema = new mongoose.Schema({
     }
   ]
 }, {
-  timestamps: true,
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true }
-});
+  toJSON: {
+    virtuals: true, // Include virtual properties when data is requested
+  },
+  id: false, // Don't include the default mongoose _id
+}
+);
+
 
 UserSchema.virtual('friendCount').get(function() {
   return this.friends.length;
